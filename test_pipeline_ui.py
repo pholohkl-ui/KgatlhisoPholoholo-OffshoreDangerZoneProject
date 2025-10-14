@@ -1,16 +1,16 @@
-# =========================================================
-# 🚧 DANGER ZONE — Starter with Pipeline UI (5 types)
-# =========================================================
 
-# 1) Imports
+#  DANGER ZONE — Starter with Pipeline UI (5 types)
+
+
+#  Imports
 import streamlit as st
 import numpy as np
 
-# 2) Page setup
+#  Page setup
 st.set_page_config(page_title="Danger Zone", page_icon="⚠️", layout="wide")
 st.title("Gas Hydrate Formation Danger Zone — Offshore Pipeline Risk Model")
 
-# 3) Pipeline profiles (ranges, weights, zone cutoffs)
+#  Pipeline profiles (ranges, weights, zone cutoffs)
 PIPELINE_PROFILES = {
     "Gathering": {
         "P_range": (10, 80),  "T_range": (-5, 40),
@@ -44,7 +44,7 @@ PIPELINE_PROFILES = {
     },
 }
 
-# 4) Risk function (uses normalized variables per profile)
+#  Risk function (uses normalized variables per profile)
 def profile_norm_and_risk(P, T, MEG, S, W, prof):
     Pmin, Pmax = prof["P_range"]; Tmin, Tmax = prof["T_range"]
     w = prof["weights"]
@@ -61,7 +61,7 @@ def profile_norm_and_risk(P, T, MEG, S, W, prof):
     raw = w["P"]*Pn + w["T"]*Tn + w["S"]*Sn + w["W"]*Wn - w["MEG"]*MEGn
     return float(np.clip(raw, 0.0, 1.0))
 
-# 5) Sidebar: choose pipeline class
+#  Sidebar: choose pipeline class
 with st.sidebar:
     st.header("Pipeline Class")
     pipeline_type = st.selectbox("Type", list(PIPELINE_PROFILES.keys()), index=0)
@@ -71,7 +71,7 @@ profile = PIPELINE_PROFILES[pipeline_type]
 Pmin, Pmax = profile["P_range"]; Tmin, Tmax = profile["T_range"]
 lo, hi = profile["cuts"]
 
-# 6) Pipeline UI — wet vs dry logic
+#  Pipeline UI — wet vs dry logic
 dry_classes = {"Transmission", "Distribution"}
 is_dry = pipeline_type in dry_classes
 
@@ -101,7 +101,7 @@ with col1:
             S = st.slider("Salinity (ppm)", 0, 35000, 10000)
             W = st.slider("Water Cut (%)", 0, 80, 25)
 
-# 7) Compute risk
+#  Compute risk
 risk = profile_norm_and_risk(P, T, MEG, S, W, profile)
 if is_dry and not locals().get("ingress", False):
     risk *= 0.1  # damp risk for dry classes without ingress
@@ -114,7 +114,7 @@ with col2:
     st.write(f"Risk index: **{int(risk*100)}/100**")
     st.progress(risk)
 
-# 8) Footer / signature
+#  Footer / signature
 st.markdown("---")
 st.markdown(
     "<p style='text-align:center; color:gray;'>© 2025 Kgatlhiso L. Pholoholo — All rights reserved.</p>",
