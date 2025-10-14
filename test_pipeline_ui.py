@@ -85,7 +85,7 @@ with col1:
     T = st.slider("Temperature (°C)", int(Tmin), int(Tmax), 15)
 
     if is_dry:
-        st.info("Dry gas class — gas dehydrated to spec. Hydrate risk negligible unless water ingress occurs.")
+        st.info("Classified as dry gas, hydrate formation is unlikely except in cases of.")
         ingress = st.toggle("Simulate water ingress event?", value=False)
         MEG = st.slider("Inhibitor (MEG %)", 0, 60, 0)
         if ingress:
