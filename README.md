@@ -4,3 +4,5 @@ This interactive Streamlit app models hydrate formation risk in offshore pipelin
 Licensed under the MIT License © 2025 Kat Pholoholo
 
 Connect with me on Linkedln, always open/happy to new connections :)
+
+Live model: https://dangerzoneproject-t5hurhw9gsgpe6cpu9ofeq.streamlit.app/
